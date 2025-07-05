@@ -38,9 +38,8 @@ The main objective of this project is to provide a simple yet powerful solution 
 - **Automation with VBA Macros**  
   After data preparation, the VBA macros process the cleaned dataset to consolidate orders based on business rules, such as grouping orders below PHP 500 into a single invoice and assigning separate invoices for orders exceeding PHP 500, while automatically assigning invoice numbers for both consolidated and separate invoices.
 
-# 6. Snippet  
 
-# 7. How to Use  
+# 6. How to Use  
 **Step 1: Download Sales Reports**  
 - Log in to Shopee, Lazada, and TikTok Shop seller centers.  
 - Download your sales reports for the relevant period (daily, weekly, or monthly).  
@@ -62,7 +61,7 @@ The main objective of this project is to provide a simple yet powerful solution 
 **Step 5: Save Your Work**  
 - Save the workbook with updated sales invoice records for your documentation or submission.
 
-# 8. Summary of the VBA Macro  
+# 7. Summary of the VBA Macro  
 1. **Worksheet Setup**  
 The macro begins by identifying and linking the worksheets for Lazada, Shopee, TikTok, and the summary sheet (CashReceipt). It clears any old data in the summary to prepare for new entries.
 
@@ -106,6 +105,10 @@ To protect the macro logic:
 
 ## 📂 Files Included
 - `TAX RECORD.xlsm` — Excel file with Power Query and VBA macros
+  
+## 📷 Sample Output – Sales Invoice Table
+![Sales Invoice Table](https://github.com/sufrimo/VBA-MACRO-SALES-INVOICE-NUMBERING/blob/main/Sales%20Invoice%20Table.png?raw=true)
+
 - `README.md` — Project documentation
 
 ---
