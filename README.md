@@ -1,110 +1,101 @@
-# 📊 E-Commerce Tax Automation Tool (Excel VBA)
+# 1. Introduction  
+E-commerce in the Philippines has grown rapidly over the past decade, led by major platforms like Shopee, Lazada, and TikTok Shop. In 2024, the government introduced a mandatory tax on e-commerce businesses to boost revenue and regulate the fast-expanding digital market. This move signals a shift toward greater formalization and accountability in the online retail sector.  
+As part of this shift, my work focuses on automating tax input processes using Excel VBA macros, helping businesses streamline compliance and reduce manual errors in tax reporting.
 
-## 1. Introduction  
-E-commerce in the Philippines has grown rapidly over the past decade, led by major platforms like Shopee, Lazada, and TikTok Shop. In 2024, the government introduced a mandatory tax on e-commerce businesses to boost revenue and regulate the fast-expanding digital market. This project supports that transition by helping sellers streamline their compliance processes.
+# 2. Description of Project  
+This project is an Excel-based VBA macro tool designed for e-commerce sellers to automate their tax reporting workflows. It handles the consolidation of sales data from Shopee, Lazada, and TikTok Shop, automates sales invoice counting, matches digital sales with physical paper invoice numbers, and computes taxes on a daily, weekly, or monthly basis, depending on the business’s reporting needs. The tool helps streamline compliance and reduce manual input in high-volume transaction environments.
 
-This Excel-based tool uses **VBA macros** to automate the consolidation of sales data and generation of sales invoices, reducing manual effort and minimizing errors in tax reporting.
+## Business Rules / Tax Compliance  
+- Orders with individual amounts below PHP 500 within the same day are combined into a single invoice for tax reporting.  
+- Orders with amounts exceeding PHP 500 require separate invoices in compliance with tax regulations.  
+- This ensures proper documentation and alignment with government guidelines on invoice issuance and tax filing.
 
----
+# 3. Objective  
+The main objective of this project is to provide a simple yet powerful solution for automating tax-related tasks specific to e-commerce operations. It aims to:  
+- Improve accuracy in tax reporting  
+- Consolidate multi-platform sales into one system  
+- Minimize manual encoding sales data  
+- Align digital records with official paper invoice sequences  
+- Support timely and structured tax filing across various reporting periods
 
-## 2. Description of Project  
-This project is an Excel macro automation tool tailored for Philippine e-commerce sellers. It consolidates raw sales data from Shopee, Lazada, and TikTok Shop, matches these with official invoice numbers, and helps automate tax calculations.
+# 4. Scope and Limitation  
 
-### 🔒 Business Rules / Tax Compliance
-- Orders **below PHP 500** (per order, per day) are grouped into a **single invoice**.
-- Orders **exceeding PHP 500** require **separate invoices**.
-- Aligns with BIR tax rules and ensures proper invoice issuance and record-keeping.
+## Scope  
+- Import raw sales reports from Shopee, Lazada, and TikTok Shop  
+- Match and tally invoice numbers with physical sales invoices and book records  
+- Consolidate sales orders regardless of reporting interval (daily, weekly, or monthly)
 
----
+## Limitations  
+- The system does not integrate directly with e-commerce platforms or the BIR e-filing system  
+- Manual input is still required to assign official invoice numbers from printed physical invoice books  
+- Cannot be used to mix or process physical store invoices alongside e-commerce invoices
 
-## 3. Objective  
-The main goal of this tool is to simplify tax-related workflows for online sellers by:
-- Improving accuracy in tax reporting  
-- Consolidating multi-platform sales  
-- Reducing manual data entry  
-- Matching with official printed invoice numbers  
-- Supporting daily, weekly, or monthly reporting
+# 5. Methodology  
+- **Data Extraction**  
+  Sales reports are downloaded from each e-commerce platform — Shopee, Lazada, and TikTok Shop — and saved into a designated folder. Within this folder, subfolders are created for each platform to organize the raw data files.  
+- **Data Preparation**  
+  Using Power Query in Excel, the raw sales data files are imported and cleaned. This includes steps such as removing unnecessary columns, correcting data formats, filtering out irrelevant records, and consolidating multiple files into a unified dataset.  
+- **Automation with VBA Macros**  
+  After data preparation, the VBA macros process the cleaned dataset to consolidate orders based on business rules, such as grouping orders below PHP 500 into a single invoice and assigning separate invoices for orders exceeding PHP 500, while automatically assigning invoice numbers for both consolidated and separate invoices.
 
----
+# 6. Snippet  
 
-## 4. Scope and Limitation
+# 7. How to Use  
+**Step 1: Download Sales Reports**  
+- Log in to Shopee, Lazada, and TikTok Shop seller centers.  
+- Download your sales reports for the relevant period (daily, weekly, or monthly).  
+- Save each report in its corresponding platform subfolder within the main project folder.
 
-### ✅ Scope:
-- Import sales reports from **Shopee, Lazada, and TikTok Shop**
-- Match digital sales with **printed invoice books**
-- Consolidate orders across different timeframes
+**Step 2: Open the Excel Workbook**  
+- Launch the Excel file containing the VBA macros.  
+- Make sure macros are enabled when prompted.
 
-### ⚠️ Limitations:
-- No direct integration with e-commerce APIs or BIR e-filing
-- Manual input still needed for assigning physical invoice numbers
-- Not designed for brick-and-mortar store invoices
+**Step 3: Refresh**  
+- Click refresh all button on Data tab.
 
----
+**Step 4: Run the VBA Macros**  
+- Click the “update” button to run the macros.  
+- The tool will:  
+  - Consolidate orders based on business rules (group orders below PHP 500 into single invoices and separate those above PHP 500).  
+  - Automatically assign invoice numbers for consolidated and separate invoices.
 
-## 5. Methodology
+**Step 5: Save Your Work**  
+- Save the workbook with updated sales invoice records for your documentation or submission.
 
-### 📥 Data Extraction
-- Sellers download CSV or Excel sales reports from their platform dashboards
-- Files are saved in a structured folder with subfolders by platform
+# 8. Summary of the VBA Macro  
+1. **Worksheet Setup**  
+The macro begins by identifying and linking the worksheets for Lazada, Shopee, TikTok, and the summary sheet (CashReceipt). It clears any old data in the summary to prepare for new entries.
 
-### 🧹 Data Preparation
-- Power Query is used to clean and combine data:
-  - Remove unnecessary columns
-  - Normalize formats
-  - Filter out non-sales data
+2. **Data Extraction and Consolidation**  
+Each platform’s sales report is processed differently based on its layout:  
+- Lazada:  
+  Uses a Do While loop to scan through blocks of rows that represent each transaction. It checks for a specific label to identify transaction start points and calculates totals from related rows.  
+- Shopee & TikTok:  
+  Use For loops to process each row one by one. The macro extracts transaction details like date, price, charges, and net income.  
+All processed records are added to the summary sheet (CashReceipt), along with the source platform.
 
-### 🤖 Automation with VBA
-- VBA macros consolidate orders based on business rules
-- Orders below PHP 500 are grouped under a single invoice
-- Orders above PHP 500 are assigned individual invoices
-- Invoice numbers are automatically assigned
+3. **Sorting by Date**  
+After consolidation, all data is sorted chronologically by transaction date. This prepares the dataset for correct invoice grouping in the next step.
 
----
+4. **Assigning Invoice Numbers**  
+The macro groups’ transactions by date and assigns Sales Invoice (SI) numbers:  
+- Transactions over PHP 500 receive individual SI numbers.  
+- Transactions PHP 500 and below (per order) are grouped under a single SI number for that day.  
+This ensures compliance with invoicing rules and allows easy tracking.
 
-## 6. How to Use
+5. **Sorting by Invoice Number**  
+To organize the data further, the summary is sorted again this time by SI number, so grouped orders are visually together.
 
-### Step 1: Download Sales Reports
-- Get sales files from Shopee, Lazada, and TikTok seller dashboards
-- Save them into platform-specific subfolders
+6. **Formatting**  
+The final part of the macro sets up the structure to apply alternating row colors and cell borders for readability. This part appears to be in progress.
 
-### Step 2: Open the Excel File
-- Launch the workbook and enable macros
-
-### Step 3: Refresh Data
-- Click **Refresh All** from the Excel **Data** tab
-
-### Step 4: Run Macros
-- Click the **"Update"** button (or run the macro manually)
-- The macro will:
-  - Consolidate and group transactions
-  - Assign sales invoice numbers automatically
-
-### Step 5: Save Your Work
-- Save the updated workbook for tax documentation or BIR submission
-
----
-
-## 7. Summary of VBA Logic
-
-### 🧠 Core Logic
-1. **Setup** – Assign worksheet references and clear old data
-2. **Import** – Extract and process each platform’s report differently
-3. **Sort** – First by date, then by invoice number
-4. **Invoice Assignment** – Apply business rules for grouping and numbering
-5. **Format Output** – (In progress) Apply borders and alternating colors for readability
-
-### 🔧 Techniques Used:
-- `Do While` loops for dynamic multi-row logic (Lazada)
-- `For` loops for sequential data (Shopee and TikTok)
-- Conditional logic for tax grouping
-- Excel's built-in sorting methods
-- Automated invoice generation and grouping logic
-
----
-
-## 7. Snippet
-
-
+### Techniques Used:  
+- Do While loops for dynamic row processing  
+- For loops for row-by-row extraction  
+- Conditional logic for tax rules  
+- Excel sort functions for organization  
+- Structured grouping and numbering of invoices
+  
 ---
 
 ## 🔐 Security Note
@@ -122,8 +113,7 @@ To protect the macro logic:
 ## 📞 Contact  
 For questions or requests:  
 **[Engr. Alfreime Alloye Lazarte]**  
-📧 lazartealfreimealloye@yahoo.com.
+📧 lazartealfreimealloye.com  
 📍 Philippines
 
 ---
-
